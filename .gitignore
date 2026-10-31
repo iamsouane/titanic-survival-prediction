@@ -1,0 +1,12 @@
+# Environnement virtuel
+.venv/
+venv/
+
+# Données (trop lourdes pour Git)
+data/
+
+# Notebooks (pour éviter les conflits de versions)
+.ipynb_checkpoints/
+
+# OS (Mac)
+.DS_Store
