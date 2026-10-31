@@ -1,3 +1,4 @@
+```markdown
 # Titanic Survival Prediction - End-to-End ML Pipeline
 
 ## 📌 Project Overview
@@ -7,31 +8,78 @@ The main objective was to build a robust, production-ready model while strictly 
 ## 🛠️ Tech Stack
 - **Python 3.12**
 - **Pandas & NumPy** (Data manipulation)
-- **Scikit-Learn** (Preprocessing, Pipelines, Modeling)
+- **Scikit-Learn** (Preprocessing, Pipelines, Modeling, Serialization)
 - **Matplotlib / Seaborn** (EDA)
 
 ## 🧠 Methodology
-1. **Exploratory Data Analysis (EDA)**: Handled missing values (Age, Embarked, Cabin) and identified class imbalance (61.6% vs 38.4%).
+1. **Exploratory Data Analysis (EDA)**: Handled missing values (`Age`, `Embarked`, `Cabin`) and identified class imbalance (61.6% vs 38.4%).
 2. **Data Leakage Prevention**: Used `train_test_split` with `stratify=y` **before** any preprocessing.
 3. **Preprocessing Pipeline**: 
-   - `ColumnTransformer` to apply specific transformations (Median Imputation + StandardScaler for numerical, Mode Imputation + One-Hot Encoding for categorical).
+   - `ColumnTransformer` to apply specific transformations (Median Imputation + `StandardScaler` for numerical features, Mode Imputation + `OneHotEncoder` for categorical features).
    - Encapsulated inside a Scikit-Learn `Pipeline`.
 4. **Modeling**: Compared 3 algorithms using `StratifiedKFold` Cross-Validation:
    - Logistic Regression
    - Decision Tree
    - K-Nearest Neighbors (KNN)
 5. **Final Evaluation**: KNN performed best with **81.5% Accuracy** and **82.4% ROC-AUC** on the unseen test set.
+6. **Production Ready**: The preprocessing logic is modularized in `src/`, and the final model is serialized (`.joblib`) for easy deployment.
 
 ## 📂 Repository Structure
+
 ```text
-├── data/raw/               # Raw CSV files (ignored in git)
-├── notebooks/              # Jupyter Notebooks for EDA and prototyping
-├── src/                    # Production-ready Python scripts
-├── requirements.txt        # Python dependencies
-└── README.md
+titanic-survival-prediction/
+│
+├── data/
+│   └── raw/                 # Raw CSV files (ignored in git)
+│
+├── notebooks/
+│   └── 01_titanic_pipeline.ipynb  # Jupyter Notebook for EDA and prototyping
+│
+├── src/
+│   ├── data_preprocessing.py      # Preprocessing pipeline (ColumnTransformer)
+│   └── train.py                   # Training script (Production-ready)
+│
+├── .gitignore               # Files to ignore in git
+├── requirements.txt         # Python dependencies
+└── README.md                # Project documentation
+```
 
-🚀 How to Run
+## 🚀 How to Run
 
-Clone the repository: git clone https://github.com/...
-Install dependencies: pip install -r requirements.txt
-Run the training script: python src/train.py
+### 1. Clone the repository
+```bash
+git clone https://github.com/TON_PSEUDO/titanic-survival-prediction.git
+cd titanic-survival-prediction
+```
+*(⚠️ Remplace `TON_PSEUDO` par ton nom d'utilisateur GitHub)*
+
+### 2. Set up the environment
+```bash
+# Create a virtual environment
+python -m venv .venv
+
+# Activate it (On macOS/Linux)
+source .venv/bin/activate  
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 3. Run the training pipeline
+```bash
+python src/train.py
+```
+This will train the KNN model, evaluate it, and save the serialized model (`knn_titanic_model.joblib`) in the root directory.
+
+### 4. Explore the notebook (Optional)
+To see the full Exploratory Data Analysis and model comparison:
+```bash
+jupyter notebook notebooks/01_titanic_pipeline.ipynb
+```
+```
+
+***
+
+👉 Une fois que c'est fait, n'oublie pas de cliquer sur **"Commit changes"**.
+
+**Ensuite**, crée bien ton dossier `src` et mets les fichiers `.py` (comme vu dans le message précédent), exécute `python src/train.py` dans le terminal, et dis-moi si tout fonctionne ! 🚀
