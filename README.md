@@ -24,6 +24,25 @@ The main objective was to build a robust, production-ready model while strictly 
 5. **Final Evaluation**: KNN performed best with **81.5% Accuracy** and **82.4% ROC-AUC** on the unseen test set.
 6. **Production Ready**: The preprocessing logic is modularized in `src/`, and the final model is serialized (`.joblib`) for easy deployment.
 
+## 📊 Results
+
+After running the production script (`python src/train.py`), here are the results on the unseen test set (20% of the data):
+
+```text
+Chargement des données...
+Entraînement du modèle...
+
+=== RÉSULTATS ===
+Accuracy : 0.8212
+ROC-AUC  : 0.8461
+
+Modèle sauvegardé sous : .../knn_titanic_model.joblib
+```
+
+**Interpretation:**
+- **Accuracy (82.1%)**: The model correctly predicts survival for 82% of the passengers. It significantly beats the baseline (61.6% by always predicting "not survived").
+- **ROC-AUC (84.6%)**: The model has a strong ability to rank passengers by survival probability, meaning it can distinguish survivors from non-survivors well.
+
 ## 📂 Repository Structure
 
 ```text
@@ -77,9 +96,3 @@ To see the full Exploratory Data Analysis and model comparison:
 jupyter notebook notebooks/01_titanic_pipeline.ipynb
 ```
 ```
-
-***
-
-👉 Une fois que c'est fait, n'oublie pas de cliquer sur **"Commit changes"**.
-
-**Ensuite**, crée bien ton dossier `src` et mets les fichiers `.py` (comme vu dans le message précédent), exécute `python src/train.py` dans le terminal, et dis-moi si tout fonctionne ! 🚀
