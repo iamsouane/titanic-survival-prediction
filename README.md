@@ -95,4 +95,3 @@ To see the full Exploratory Data Analysis and model comparison:
 ```bash
 jupyter notebook notebooks/01_titanic_pipeline.ipynb
 ```
-```
