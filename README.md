@@ -1,9 +1,8 @@
-```markdown
-# Titanic Survival Prediction - End-to-End ML Pipeline
+## Titanic Survival Prediction - End-to-End ML Pipeline
 
 ## 📌 Project Overview
 This project is a complete Machine Learning pipeline to predict passenger survival on the Titanic dataset. 
-The main objective was to build a robust, production-ready model while strictly avoiding **data leakage**.
+The main objective was to build a robust, reusable pipeline while strictly avoiding **data leakage**.
 
 ## 🛠️ Tech Stack
 - **Python 3.12**
@@ -17,16 +16,15 @@ The main objective was to build a robust, production-ready model while strictly 
 3. **Preprocessing Pipeline**: 
    - `ColumnTransformer` to apply specific transformations (Median Imputation + `StandardScaler` for numerical features, Mode Imputation + `OneHotEncoder` for categorical features).
    - Encapsulated inside a Scikit-Learn `Pipeline`.
-4. **Modeling**: Compared 3 algorithms using `StratifiedKFold` Cross-Validation:
+4. **Modeling**: Compared 3 algorithms using `StratifiedKFold` Cross-Validation (Mean CV Accuracy: ~79.8%):
    - Logistic Regression
    - Decision Tree
    - K-Nearest Neighbors (KNN)
-5. **Final Evaluation**: KNN performed best with **81.5% Accuracy** and **82.4% ROC-AUC** on the unseen test set.
-6. **Production Ready**: The preprocessing logic is modularized in `src/`, and the final model is serialized (`.joblib`) for easy deployment.
+5. **Final Evaluation**: KNN performed best with **82.1% Accuracy** and **84.6% ROC-AUC** on the unseen test set.
+6. **Reusable Pipeline**: The preprocessing logic is modularized in `src/`, and the final model is serialized (`.joblib`) for easy reuse.
 
 ## 📊 Results
-
-After running the production script (`python src/train.py`), here are the results on the unseen test set (20% of the data):
+After running the script (`python src/train.py`), here are the results on the unseen test set (20% of the data):
 
 ```text
 Chargement des données...
@@ -37,14 +35,14 @@ Accuracy : 0.8212
 ROC-AUC  : 0.8461
 
 Modèle sauvegardé sous : .../knn_titanic_model.joblib
+
+Interpretation:
+
+Accuracy (82.1%): The model correctly predicts survival for 82% of the passengers. It significantly beats the baseline (61.6% by always predicting "not survived").
+ROC-AUC (84.6%): The model has a strong ability to rank passengers by survival probability, meaning it can distinguish survivors from non-survivors well.
 ```
 
-**Interpretation:**
-- **Accuracy (82.1%)**: The model correctly predicts survival for 82% of the passengers. It significantly beats the baseline (61.6% by always predicting "not survived").
-- **ROC-AUC (84.6%)**: The model has a strong ability to rank passengers by survival probability, meaning it can distinguish survivors from non-survivors well.
-
 ## 📂 Repository Structure
-
 ```text
 titanic-survival-prediction/
 │
@@ -56,7 +54,7 @@ titanic-survival-prediction/
 │
 ├── src/
 │   ├── data_preprocessing.py      # Preprocessing pipeline (ColumnTransformer)
-│   └── train.py                   # Training script (Production-ready)
+│   └── train.py                   # Training script (Reusable pipeline)
 │
 ├── .gitignore               # Files to ignore in git
 ├── requirements.txt         # Python dependencies
@@ -65,33 +63,25 @@ titanic-survival-prediction/
 
 ## 🚀 How to Run
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/TON_PSEUDO/titanic-survival-prediction.git
-cd titanic-survival-prediction
-```
-*(⚠️ Remplace `TON_PSEUDO` par ton nom d'utilisateur GitHub)*
+1. Clone the repository
+- git clone https://github.com/iamsouane/titanic-survival-prediction.git
+- cd titanic-survival-prediction
 
-### 2. Set up the environment
-```bash
-# Create a virtual environment
-python -m venv .venv
+2. Set up the environment
+ - Create a virtual environment
+      python -m venv .venv
 
-# Activate it (On macOS/Linux)
-source .venv/bin/activate  
+ - Activate it (On macOS/Linux)
+      source .venv/bin/activate  
 
-# Install dependencies
-pip install -r requirements.txt
-```
+ - Install dependencies
+      pip install -r requirements.txt
 
-### 3. Run the training pipeline
-```bash
-python src/train.py
-```
-This will train the KNN model, evaluate it, and save the serialized model (`knn_titanic_model.joblib`) in the root directory.
+3. Run the training pipeline
+- python src/train.py
 
-### 4. Explore the notebook (Optional)
+This will train the KNN model, evaluate it, and save the serialized model (knn_titanic_model.joblib) in the root directory.
+
+4. Explore the notebook (Optional)
 To see the full Exploratory Data Analysis and model comparison:
-```bash
-jupyter notebook notebooks/01_titanic_pipeline.ipynb
-```
+- jupyter notebook notebooks/01_titanic_pipeline.ipynb
